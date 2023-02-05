@@ -8,12 +8,18 @@ The tool is an interface that allows you to evaluate multiple domains at once. I
 ## Features
 
 🟢 Automatic key rotation system.
-🟢 CSV export system
+
+🟢 CSV export system.
+
 🟢 Domain formatting system.
+
 🟢 Domain sorting system.
+
 🟢 High-value domain separator
+
 🟢 Automatic calculation of checking speed.
-🟢 Error handling
+
+🟢 Error handling.
 
 More coming soon 🔧.
 
@@ -101,6 +107,6 @@ I started trading domains a while ago and wanted a program that would automate t
 
 Currently the code works fine, with some self-correcting properties and limitations to avoid input errors, I tried to make the code as correct as possible, but I had trouble creating a really efficient stop button and error handling system, and other organizational parameters, but I feel that I am step by step getting closer to programming efficiently.
 
-If you can help me buy the coffee I would appreciate it!
+If you can help me buy the coffee I would appreciate it! ☕
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/short443)
