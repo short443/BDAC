@@ -20,7 +20,8 @@ More coming soon 🔧.
 ## Configuration.
 
 **What you will need:**
-3 x Pairs of GoDaddy Api Key/Secrets **(Each pair from differet accounts)** **(recommended)**
+
+3 x Pairs of GoDaddy Api Key/Secrets **(Each pair from differet accounts)**
 
 1 x Cors Proxy Link **(Optional)**
 
