@@ -82,12 +82,6 @@ function checkNextDomain() {
                 checkNextDomain();
             } else {
                 checkedDomains.add(e);
-                while (!apiKeys[keyIndex].key || !apiKeys[keyIndex].secret) {
-                    keyIndex++;
-                    if (keyIndex === apiKeys.length) {
-                        keyIndex = 0;
-                    }
-                }
                 var t = cors_api_url + "https://api.godaddy.com/v1/appraisal/" + e;
                 var n = {
                     method: "GET",
