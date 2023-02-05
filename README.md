@@ -27,8 +27,6 @@ More coming soon 🔧.
 
 ## Configuration.
 
-*⚠ Be careful, do not host this program on the internet without knowing what you are doing, leaking your api keys can put your account security at risk, use the program locally in a folder on your computer, never share your keys and secrets with anyone, and never share your personal program folder with anyone.*
-
 **What you will need:**
 
 3 x Pairs of GoDaddy Api Key/Secrets **(Each pair from differet accounts)**
@@ -48,6 +46,8 @@ More coming soon 🔧.
 5 - Now just enjoy ✨
 
 ## Getting and adding Api Keys and Secrets.
+
+*⚠ Be careful, do not host this program on the internet without knowing what you are doing, leaking your api keys can put your account security at risk, use the program locally in a folder on your computer, never share your keys and secrets with anyone, and never share your personal program folder with anyone.*
 
 To be able to make requests to the GoDaddy API the BDAC uses a key rotation system to avoid bottlenecks during the processing of large domain lists, for each account you can make 20 API calls, with **3 pairs** in different accounts you can make 60 calls, enough to get 1 result per second, it is okay to use fewer keys but the processing time will be quite long. **(You can use more keys to speed up the responses)**.
 
