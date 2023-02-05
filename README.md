@@ -5,7 +5,7 @@
 # BDAC - Bulk Domain Appraisal Checker
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/short443)
 
-The tool is an interface that allows you to evaluate multiple domains at once. It uses the Godaddy API to perform this assessment and displays the results on the screen. The tool is easy to use, just enter the desired domain names into the text box and click "Evaluate".
+BDAC is an interface that allows you to evaluate multiple domains at once. It uses the Godaddy API to perform this assessment and displays the results on the screen. The tool is easy to use, just enter the desired domain names into the text box and click "Evaluate".
 
 ## Features
 
@@ -105,8 +105,8 @@ Ex: "https://WorkerName.Subdomain.workers.dev/?"
 
 ## About the development
 
-Hello, my name is short (pseudonym) and I wanted to talk a little bit about the development and code of the program, this is my first project and I did almost entirely in NO-CODE, I started to research about programming and this project is part of my study, I developed the backend with the help of ChatGPT and the frontend using Mobirise 4, while I was writing the code and fighting to get answers from ChatGPT I realized that probably some things in the code don't seem right, so I came here in Github to release the code and to learn and correct values that are badly implemented.
+Hello, my name is short (pseudonym) and I would like to talk a little bit about the development and code of my program. This is my first project and I developed it almost entirely without coding. I started researching programming, and this project is part of my study. I used ChatGPT to help with the backend development, and I used Mobirise 4 for the frontend. While I was writing the code and fighting to get correct answers from ChatGPT, I realized that some things in the code might not be correct. That's why I came to Github, to release the code and learn from others on how to correct any issues.
 
-I started trading domains a while ago and wanted a program that would automate the task of appraisal for me, there was [@SaveBreach's](https://hackerpain.github.io/bulkvaluator/) project, the bulk valuator, but the program was very limited without the key rotation system, waiting times and etc, so I got inspired by his project and started designing based on what his program did and things I wanted it to have. After a lot of incomplete code from the free ChatGPT version and research in Mobirise's code (thx sublime txt 3), I managed to make the code work the way I wanted, at least doing what I wanted 😁.
+I have been trading domains for a while and I wanted a program that would automate the task of appraising them. I found [@SaveBreach's project](https://hackerpain.github.io/bulkvaluator/), the bulk valuator, but it was very limited without a key rotation system and waiting times, among other things. So I got inspired by his project and started designing my own program based on what his program did and what I wanted it to have. After many attempts with the free ChatGPT version and researching Mobirise's code (thx Sublime Text 3), I managed to make the code work the way I wanted.
 
-Currently the code works fine, with some self-correcting properties and limitations to avoid input errors, I tried to make the code as correct as possible, but I had trouble creating a really efficient stop button and error handling system, and other organizational parameters, but I feel that I am step by step getting closer to programming efficiently.
+Currently, the code works fine, with some self-correcting properties and limitations to prevent input errors. I tried to make the code as correct as possible, but I had trouble creating an efficient stop button, error handling system, and other organizational parameters. However, I feel that I am gradually getting closer to programming efficiently.
