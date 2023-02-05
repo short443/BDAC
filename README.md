@@ -65,8 +65,6 @@ To get the keys and secrets follow the step-by-step instructions:
 
 6 - Add the keys to the locations indicated between quotes in the "apiKeys" array, and repeat the process.
 
-9 - Do not leave the values of the apiKeys array empty, always delete the {key: secret:} indexes that you will not use.
-
 It should look like this (Example keys):
 
 ![Key Pairs Example](https://cdn.jsdelivr.net/gh/short443/hostimage@main/images/carbon2.png)
