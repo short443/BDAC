@@ -1,4 +1,4 @@
-// Array of API keys and their respective secrets, too add more just replicate an array and alt it's value
+// Array of API keys and their respective secrets, too add more just replicate an array and modify it's value.
 let apiKeys = [
         {
             key: "",
@@ -39,12 +39,19 @@ let apiKeys = [
 
     oldInnerHTML,
 
+
     domainsData = [];
 
 // Calc for delays between appraisals.
-var numOfApiKeys = apiKeys.length;
-var result = numOfApiKeys * 20;
-var delay = 60000 / result;
+let countOfApiKeys = 0;
+for (let i = 0; i < apiKeys.length; i++) {
+    let key = apiKeys[i];
+    if (key.key && key.secret) {
+        countOfApiKeys++;
+    }
+}
+let result = countOfApiKeys * 20;
+let delay = 60000 / result;
 
 function appraiseDomains() {
     sortEnabled = false;
@@ -59,7 +66,7 @@ function appraiseDomains() {
     if (e.value) {
         domains = e.value.split("\n").map(domain => {
             domain = domain.replace(/\s/g, '');
-            if (!domain.includes(".")) {
+            if (domain.length > 0 && !domain.includes(".")) {
                 domain += ".com";
             }
             return domain;
@@ -82,6 +89,12 @@ function checkNextDomain() {
                 checkNextDomain();
             } else {
                 checkedDomains.add(e);
+                while (!apiKeys[keyIndex].key || !apiKeys[keyIndex].secret) {
+                    keyIndex++;
+                    if (keyIndex === apiKeys.length) {
+                        keyIndex = 0;
+                    }
+                }
                 var t = cors_api_url + "https://api.godaddy.com/v1/appraisal/" + e;
                 var n = {
                     method: "GET",
