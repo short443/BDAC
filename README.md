@@ -108,5 +108,3 @@ Hello, my name is short (pseudonym) and I wanted to talk a little bit about the 
 I started trading domains a while ago and wanted a program that would automate the task of appraisal for me, there was [@SaveBreach's](https://hackerpain.github.io/bulkvaluator/) project, the bulk valuator, but the program was very limited without the key rotation system, waiting times and etc, so I got inspired by his project and started designing based on what his program did and things I wanted it to have. After a lot of incomplete code from the free ChatGPT version and research in Mobirise's code (thx sublime txt 3), I managed to make the code work the way I wanted, at least doing what I wanted 😁.
 
 Currently the code works fine, with some self-correcting properties and limitations to avoid input errors, I tried to make the code as correct as possible, but I had trouble creating a really efficient stop button and error handling system, and other organizational parameters, but I feel that I am step by step getting closer to programming efficiently.
-
-If you can help me buy the coffee I would appreciate it! ☕
