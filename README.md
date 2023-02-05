@@ -75,7 +75,7 @@ It should look like this (Example keys):
 
 A CORS (Cross-Origin Resource Sharing) proxy is used to connect to APIs from a different origin (domain, protocol, or port) than the client's. This is necessary because web browsers enforce a security feature called the same-origin policy, which restricts a web page from making requests to a different origin. A CORS proxy acts as an intermediary, forwarding the API requests from the client to the API server and returning the API responses back to the client, allowing for cross-origin communication.
 
-By default the program comes already set with the cors proxy from corsproxy.io, only in case you want to use a personal one you have to change it.
+**By default the program comes already set with the cors proxy from corsproxy.io**, only in case you want to use a personal one you have to change it.
 
 Here are the steps on how to create your own (Hosted by Cloudflare):
 
