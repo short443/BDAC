@@ -27,9 +27,9 @@ More coming soon 🔧.
 
 ## Configuration.
 
-**What you will need:**
-
 *⚠ Be careful, do not host this program on the internet without knowing what you are doing, leaking your api keys can put your account security at risk, use the program locally in a folder on your computer, never share your keys and secrets with anyone, and never share your personal program folder with anyone.*
+
+**What you will need:**
 
 3 x Pairs of GoDaddy Api Key/Secrets **(Each pair from differet accounts)**
 
