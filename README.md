@@ -21,6 +21,7 @@ More coming soon 🔧.
 
 **What you will need:**
 3 x Pairs of GoDaddy Api Key/Secrets **(Each pair from differet accounts)** **(recommended)**
+
 1 x Cors Proxy Link **(Optional)**
 
 ## Download and running it.
