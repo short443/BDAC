@@ -39,7 +39,6 @@ let apiKeys = [
 
     oldInnerHTML,
 
-
     domainsData = [];
 
 // Calc for delays between appraisals.
