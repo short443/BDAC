@@ -183,7 +183,7 @@ function checkNextDomain() {
                             }
                         })
                         .catch((e) => {
-                            console.error(`Error appraising domain: ${e}`);
+                            console.error(`Error appraising domain: ${dn}`);
                             fetchErrorCount++;
                             if (fetchErrorCount < 3) {
                                 retryTimeoutId = setTimeout(fetchData, delay);
