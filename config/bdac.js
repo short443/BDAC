@@ -1,47 +1,53 @@
-// Array of API keys and their respective secrets, too add more just replicate an array and modify it's value.
+/**
+ * An array of API keys and their corresponding secrets.
+ * @type {Array<{key: string, secret: string}>}
+ */
 let apiKeys = [
         {
-            key: "",
-            secret: ""
+            key: "<Key>",
+            secret: "<Secret>",
         },
         {
-            key: "",
-            secret: ""
+            key: "<Key2>",
+            secret: "<Secret2>",
         },
         {
-            key: "",
-            secret: ""
+            key: "<Key3>",
+            secret: "<Secret3>",
         },
     ],
 
+    /**
+     * A function that returns a CORS-enabled URL for the given URL.
+     * @param {string} url - The URL to convert into a CORS-enabled URL.
+     * @returns {string} The CORS-enabled URL.
+     */
 
-    // URL for the CORS Proxy
     cors_api_url = "https://corsproxy.io/?",
 
-    // High Value Domains Price Filter
+    /**
+     * A filter that will only show products with a price greater than the given value.
+     * @param {number} highValuePrice - the high value price to filter products by.
+     * @returns {FilterConfig} - a filter config object.
+     */
+
     highValuePriceFilter = 2000,
 
     checkedDomains = new Set(),
-
     index = 0,
-
     keyIndex = 0,
-
     domains,
-
     timeoutId,
-
     requestsCount = 0,
-
     dn,
-
     sortEnabled = true,
-
     oldInnerHTML,
-
     domainsData = [];
 
-// Calc for delays between appraisals.
+/**
+ * Calculates the number of API keys that are in the apiKeys array.
+ * @returns {number} The number of API keys that are in the apiKeys array.
+ */
 let countOfApiKeys = 0;
 for (let i = 0; i < apiKeys.length; i++) {
     let key = apiKeys[i];
@@ -52,19 +58,23 @@ for (let i = 0; i < apiKeys.length; i++) {
 let result = countOfApiKeys * 20;
 let delay = 60000 / result;
 
+/**
+ * Appraises the domains in the textarea.
+ * @returns None
+ */
 function appraiseDomains() {
     sortEnabled = false;
     if (!cors_api_url) {
         return alert("Please set the 'cors_api_url' variable before proceeding.");
     }
-    if (!apiKeys.some(apiKey => apiKey.key && apiKey.secret)) {
+    if (!apiKeys.some((apiKey) => apiKey.key && apiKey.secret)) {
         return alert("Please set the 'apiKey' values before proceeding.");
     }
     var e = document.getElementById("textarea-form5-k");
 
     if (e.value) {
-        domains = e.value.split("\n").map(domain => {
-            domain = domain.replace(/\s/g, '');
+        domains = e.value.split("\n").map((domain) => {
+            domain = domain.replace(/\s/g, "");
             if (domain.length > 0 && !domain.includes(".")) {
                 domain += ".com";
             }
@@ -79,6 +89,10 @@ function appraiseDomains() {
 
 var retryTimeoutId;
 
+/**
+ * Checks the next domain in the list of domains to check.
+ * @returns None
+ */
 function checkNextDomain() {
     if (!(index >= domains.length)) {
         var e = domains[index++];
@@ -116,33 +130,14 @@ function checkNextDomain() {
                         .then(response => response.json())
                         .then((e) => {
                             if (e.code === "TOO_MANY_REQUESTS") {
-                                var warningDiv = document.createElement("p");
-                                var warningText =
-                                    "Too many requests, the verifications will resume in " + e.retryAfterSec + " seconds.";
-                                warningDiv.innerHTML = warningText;
-                                document
-                                    .getElementById("warning")
-                                    .insertAdjacentHTML("afterbegin", warningDiv.outerHTML);
+                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code} Retrying in ${e.retryAfterSec} seconds.`);
                                 setTimeout(fetchData, e.retryAfterSec * 1000);
                             } else if (e.code === 429) {
-                                var warningDiv = document.createElement("p");
-                                var warningText =
-                                    "Too many requests, the process will resume in 1 minute.";
-                                warningDiv.innerHTML = warningText;
-                                document
-                                    .getElementById("warning")
-                                    .insertAdjacentHTML("afterbegin", warningDiv.outerHTML);
+                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
                                 setTimeout(fetchData, 60000);
-
                             } else if (e.status === "UNSUPPORTED_DOMAIN") {
-                                var warningDiv = document.createElement("p");
-                                var warningText = dn + " was skipped, unsupported domain or TLD.";
-                                warningDiv.innerHTML = warningText;
-                                document
-                                    .getElementById("warning")
-                                    .insertAdjacentHTML("afterbegin", warningDiv.outerHTML);
+                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
                                 setTimeout(checkNextDomain, delay);
-
                             } else if ("OK" === e.status) {
                                 var domain = e.domain;
                                 var govalue = e.govalue;
@@ -171,14 +166,8 @@ function checkNextDomain() {
                                 if (fetchErrorCount < 3) {
                                     retryTimeoutId = setTimeout(fetchData, delay);
                                 } else {
-                                    var warningDiv = document.createElement("p");
-                                    var warningText =
-                                        "Failed to fetch the domain: " + dn + " Error code: " + e.code;
-                                    warningDiv.innerHTML = warningText;
-                                    document
-                                        .getElementById("warning")
-                                        .insertAdjacentHTML("afterbegin", warningDiv.outerHTML);
-                                    checkNextDomain();
+                                    console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code} retries: ${fetchErrorCount}`);
+                                    setTimeout(checkNextDomain, delay);
                                 }
                             }
                         })
@@ -188,29 +177,27 @@ function checkNextDomain() {
                             if (fetchErrorCount < 3) {
                                 retryTimeoutId = setTimeout(fetchData, delay);
                             } else {
-                                var warningDiv = document.createElement("p");
-                                var warningText =
-                                    "Failed to fetch the domain: " + dn + " Error code: " + e.code;
-                                warningDiv.innerHTML = warningText;
-                                document
-                                    .getElementById("warning")
-                                    .insertAdjacentHTML("afterbegin", warningDiv.outerHTML);
-                                checkNextDomain();
+                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code} retries: ${fetchErrorCount}`);
+                                setTimeout(checkNextDomain, delay);
                             }
                         });
                 };
-                fetchData();
+                setTimeout(fetchData, delay);
             }
 
 
         } else {
-            checkNextDomain();
+            setTimeout(checkNextDomain, delay);
         }
     } else if (domains.length === index) {
         sortEnabled = true;
     }
 }
 
+/**
+ * Exports the data in the table to a CSV file.
+ * @returns None
+ */
 function exportToCSV() {
     let csv = "domain,value\n";
     let result = document.getElementById("result");
@@ -232,10 +219,15 @@ function exportToCSV() {
     hiddenElement.click();
 }
 
+/**
+ * Sorts the domains by their value.
+ * @returns None
+ */
 function sortDomains() {
     if (!sortEnabled) {
-        document.querySelector(".btn-sort").title = "The button has been deactivated, to reactivate stop the appraisal process.";
-        return
+        document.querySelector(".btn-sort").title =
+            "The button has been deactivated, to reactivate stop the appraisal process.";
+        return;
     }
     if (oldInnerHTML) {
         document.getElementById("result").innerHTML = oldInnerHTML;
@@ -251,13 +243,16 @@ function sortDomains() {
             let n = document.createElement("p");
             (n.innerHTML = t.domain + " - Value: $" + t.value), e.appendChild(n);
             document.querySelector(".btn-checked").disabled = true;
-            document.querySelector(".btn-checked").title = "The button has been deactivated, to reactivate unsort the results.";
+            document.querySelector(".btn-checked").title =
+                "The button has been deactivated, to reactivate unsort the results.";
         });
     }
 }
 
+/**
+ * Clears the results of the previous scan.
+ */
 function clearResults() {
-    (document.getElementById("warning").innerHTML = ""),
     (document.getElementById("highValueResult").innerHTML = ""),
     (document.getElementById("result").innerHTML = ""),
     (domains = []),
@@ -268,11 +263,19 @@ function clearResults() {
         (index = 0);
 }
 
+/**
+ * Clears all timeouts.
+ * @returns None
+ */
 function clearAllTimeouts() {
     clearTimeout(timeoutId);
     clearTimeout(retryTimeoutId);
 }
 
+/**
+ * Copies the checked domains to the clipboard.
+ * @returns None
+ */
 function copyToClipboard() {
     var result = document.getElementById("result");
     var range = document.createRange();
@@ -287,7 +290,10 @@ function copyToClipboard() {
     }, 1200);
 }
 
-
+/**
+ * A function that clears all timeouts and intervals.
+ * @returns None
+ */
 window.addEventListener("click", function(event) {
     if (event.target.id === "stop") {
         var i = 0;
@@ -308,4 +314,4 @@ window.addEventListener("click", function(event) {
     }
 });
 
-// v1.0.0 Code Version - check https://github.com/short443/BDAC/releases/ for updates
+// v1.0.2 Code Version - check https://github.com/short443/BDAC/releases/ for updates
