@@ -31,8 +31,6 @@ More coming soon 🔧.
 
 3 x Pairs of GoDaddy Api Key/Secrets **(Each pair from differet accounts)**
 
-1 x Cors Proxy Link **(Optional)**
-
 ## Download and running it.
 
 1 - [Click Here](https://github.com/short443/BDAC/releases) and download the latest version of the program.
@@ -65,43 +63,7 @@ To get the keys and secrets follow the step-by-step instructions:
 
 6 - Add the keys to the locations indicated between quotes in the "apiKeys" array, and repeat the process.
 
-It should look like this (Example keys):
-
-![Key Pairs Example](https://cdn.jsdelivr.net/gh/short443/hostimage@main/images/carbon2.png)
-
 **Note: You can use as many keys as you want to speed up the responses, remember that each Key pair must be in different accounts.**
-
-## Cors Proxy. (Optional).
-
-A CORS (Cross-Origin Resource Sharing) proxy is used to connect to APIs from a different origin (domain, protocol, or port) than the client's. This is necessary because web browsers enforce a security feature called the same-origin policy, which restricts a web page from making requests to a different origin. A CORS proxy acts as an intermediary, forwarding the API requests from the client to the API server and returning the API responses back to the client, allowing for cross-origin communication.
-
-**By default the program comes already set with the cors proxy from corsproxy.io**, only in case you want to use a personal one you have to change it.
-
-Here are the steps on how to create your own (Hosted by Cloudflare):
-
-1 - Open the zibri repository [(Click here)](https://github.com/Zibri/cloudflare-cors-anywhere) and copy all content from "index.js".
-
-2 - Create a Cloudflare account [(Click here)](https://dash.cloudflare.com/signup).
-
-3 - Click on the "Workers" tab and select "Create a Service".
-
-4 - Choose a name for your worker and click "Create Service" again.
-
-5 - On the worker management page click "Quick Edit".
-
-6 - Delete all content from the left block and paste the content you copied in step 1.
-
-7 - Click "Save and Deploy", copy the worker link and confirm.
-
-8 - In the program folder, go to Config and with a text editor edit the file "bdac.js".
-
-9 - In the variable "cors_api_url" modify the CORS proxy URL from "https://corsproxy.io/?" to the worker link. 
-
-Ex: "https://WorkerName.Subdomain.workers.dev/?"
-
-10 - Save and done.
-
-**Note: Cloudflare has some limits that can affect the program's responses, like the limitation of 100k requests per day, if it reaches the limit the program will stop working.**
 
 ## Prints.
 
