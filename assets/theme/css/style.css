@@ -1012,13 +1012,13 @@ blockquote {
     left: -2400px;
 }
 
-#errordiv-container, #highvalue-container, #result-container {
+#highvalue-container, #result-container {
     width: 100%;
     height: 360px;
     padding: 2px;
     overflow: auto;
     color: black;
-    font-size: 19px;
+    font-size: 20px;
 }
 
 #textarea-form5-k {
