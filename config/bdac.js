@@ -68,17 +68,39 @@ let delay = 60000 / result;
 function appraiseDomains() {
     sortEnabled = false;
     if (!cors_api_url) {
-        return alert("Please set the 'cors_api_url' variable before proceeding.");
+        const notyf = new Notyf();
+        notyf
+            .error({
+                message: 'Please set the "cors_api_url" variable in config/bdac.js before proceeding.',
+                dismissible: true,
+                duration: 7000
+            })
+            .on('dismiss', ({
+                target,
+                event
+            }) => foobar.retry());
+        return
     }
     if (!apiKeys.some((apiKey) => apiKey.key && apiKey.secret)) {
-        return alert("Please set the 'apiKey' values before proceeding.");
+        const notyf = new Notyf();
+        notyf
+            .error({
+                message: 'Please set the "apiKey" variable in config/bdac.js before proceeding.',
+                dismissible: true,
+                duration: 7000
+            })
+            .on('dismiss', ({
+                target,
+                event
+            }) => foobar.retry());
+        return
     }
     var e = document.getElementById("textarea-form5-k");
 
     if (e.value) {
         document.querySelector(".btn-checked").disabled = true;
         document.querySelector(".btn-checked").title =
-                "The button has been deactivated, stop the verification before starting another.";
+            "The button has been deactivated, stop the verification before starting another.";
         domains = e.value.split("\n").map((domain) => {
             domain = domain.replace(/\s/g, "");
             if (domain.length > 0 && !domain.includes(".")) {
