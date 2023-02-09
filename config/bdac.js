@@ -81,7 +81,7 @@ function appraiseDomains() {
             }) => foobar.retry());
         return
     }
-    if (!apiKeys.some((apiKey) => apiKey.key && apiKey.secret)) {
+    else if (!apiKeys.some((apiKey) => apiKey.key && apiKey.secret)) {
         const notyf = new Notyf();
         notyf
             .error({
