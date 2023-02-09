@@ -3,18 +3,18 @@
  * @type {Array<{key: string, secret: string}>}
  */
 let apiKeys = [
-{
-    key: "",
-    secret: "",
-},
-{
-    key: "",
-    secret: "",
-},
-{
-    key: "",
-    secret: "",
-},
+    {
+        key: "",
+        secret: ""
+    },
+    {
+        key: "",
+        secret: ""
+    },
+    {
+        key: "",
+        secret: ""
+    },
 ],
 
 /**
@@ -99,8 +99,9 @@ function appraiseDomains() {
 
     if (e.value) {
         document.querySelector(".btn-checked").disabled = true;
-        document.querySelector(".btn-checked").title =
-            "The button has been deactivated, stop the verification before starting another.";
+        document.querySelector(".btn-checked").title = "The button has been deactivated, stop the appraisal before starting another.";
+        document.querySelector(".btn-sort").disabled = true;
+        document.querySelector(".btn-sort").title = "The button has been deactivated, to reactivate stop the appraisal process.";
         domains = e.value.split("\n").map((domain) => {
             domain = domain.replace(/\s/g, "");
             if (domain.length > 0 && !domain.includes(".")) {
@@ -293,6 +294,8 @@ function checkNextDomain() {
             }) => foobar.retry());
         document.querySelector(".btn-checked").disabled = false;
         document.querySelector(".btn-checked").title = "";
+        document.querySelector(".btn-sort").disabled = false;
+        document.querySelector(".btn-sort").title = "";
     }
 }
 
@@ -327,8 +330,7 @@ function exportToCSV() {
  */
 function sortDomains() {
     if (!sortEnabled) {
-        document.querySelector(".btn-sort").title =
-            "The button has been deactivated, to reactivate stop the appraisal process.";
+        document.querySelector(".btn-sort").title = "The button has been deactivated, to reactivate stop the appraisal process.";
         return;
     }
     if (oldInnerHTML) {
@@ -420,6 +422,8 @@ window.addEventListener("click", function(event) {
         }, 50);
         document.querySelector(".btn-checked").disabled = false;
         document.querySelector(".btn-checked").title = "";
+        document.querySelector(".btn-sort").disabled = false;
+        document.querySelector(".btn-sort").title = "";
         setTimeout(function() {
             clearInterval(intervalId);
             clearAllTimeouts();
@@ -428,4 +432,4 @@ window.addEventListener("click", function(event) {
     }
 });
 
-// v1.0.3 Code Version - check https://github.com/short443/BDAC/releases/ for updates.
+// v1.0.3.5 Code Version - check https://github.com/short443/BDAC/releases/ for updates.
