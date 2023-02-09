@@ -3,46 +3,49 @@
  * @type {Array<{key: string, secret: string}>}
  */
 let apiKeys = [
-        {
-            key: "<Key>",
-            secret: "<Secret>",
-        },
-        {
-            key: "<Key2>",
-            secret: "<Secret2>",
-        },
-        {
-            key: "<Key3>",
-            secret: "<Secret3>",
-        },
-    ],
+{
+    key: "",
+    secret: "",
+},
+{
+    key: "",
+    secret: "",
+},
+{
+    key: "",
+    secret: "",
+},
+],
 
-    /**
-     * A function that returns a CORS-enabled URL for the given URL.
-     * @param {string} url - The URL to convert into a CORS-enabled URL.
-     * @returns {string} The CORS-enabled URL.
-     */
+/**
+* A function that returns a CORS-enabled URL for the given URL.
+* @param {string} url - The URL to convert into a CORS-enabled URL.
+* @returns {string} The CORS-enabled URL.
+*/
 
-    cors_api_url = "https://corsproxy.io/?",
+cors_api_url = "https://corsproxy.io/?",
 
-    /**
-     * A filter that will only show products with a price greater than the given value.
-     * @param {number} highValuePrice - the high value price to filter products by.
-     * @returns {FilterConfig} - a filter config object.
-     */
+/**
+* A filter that will only show products with a price greater than the given value.
+* @param {number} highValuePrice - the high value price to filter products by.
+* @returns {FilterConfig} - a filter config object.
+*/
 
-    highValuePriceFilter = 2000,
+highValuePriceFilter = 2000,
 
-    checkedDomains = new Set(),
-    index = 0,
-    keyIndex = 0,
-    domains,
-    timeoutId,
-    requestsCount = 0,
-    dn,
-    sortEnabled = true,
-    oldInnerHTML,
-    domainsData = [];
+/**
+* General global variables.             
+*/
+checkedDomains = new Set(),
+index = 0,
+keyIndex = 0,
+domains,
+timeoutId,
+requestsCount = 0,
+dn,
+sortEnabled = true,
+oldInnerHTML,
+domainsData = [];
 
 /**
  * Calculates the number of API keys that are in the apiKeys array.
@@ -73,6 +76,9 @@ function appraiseDomains() {
     var e = document.getElementById("textarea-form5-k");
 
     if (e.value) {
+        document.querySelector(".btn-checked").disabled = true;
+        document.querySelector(".btn-checked").title =
+                "The button has been deactivated, stop the verification before starting another.";
         domains = e.value.split("\n").map((domain) => {
             domain = domain.replace(/\s/g, "");
             if (domain.length > 0 && !domain.includes(".")) {
@@ -90,9 +96,9 @@ function appraiseDomains() {
 var retryTimeoutId;
 
 /**
- * Checks the next domain in the list of domains to check.
- * @returns None
- */
+* Checks the next domain in the list of domains to check.
+* @returns None
+*/
 function checkNextDomain() {
     if (!(index >= domains.length)) {
         var e = domains[index++];
@@ -130,13 +136,49 @@ function checkNextDomain() {
                         .then(response => response.json())
                         .then((e) => {
                             if (e.code === "TOO_MANY_REQUESTS") {
-                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code} Retrying in ${e.retryAfterSec} seconds.`);
+                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code} Trying again in ${e.retryAfterSec} seconds.`);
+                                const notyf = new Notyf();
+                                notyf
+                                    .error({
+                                        message: 'Too many requests. Trying again in ' + e.retryAfterSec + ' seconds.',
+                                        dismissible: true,
+                                        duration: e.retryAfterSec * 1000
+                                    })
+                                    .on('dismiss', ({
+                                        target,
+                                        event
+                                    }) => foobar.retry());
                                 setTimeout(fetchData, e.retryAfterSec * 1000);
                             } else if (e.code === 429) {
                                 console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
                                 setTimeout(fetchData, 60000);
                             } else if (e.status === "UNSUPPORTED_DOMAIN") {
                                 console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
+                                const notyf = new Notyf();
+                                notyf
+                                    .error({
+                                        message: dn + ' is not not supported for verification.',
+                                        dismissible: true,
+                                        duration: 0
+                                    })
+                                    .on('dismiss', ({
+                                        target,
+                                        event
+                                    }) => foobar.retry());
+                                setTimeout(checkNextDomain, delay);
+                            } else if (e.code === "NOT_FOUND") {
+                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
+                                const notyf = new Notyf();
+                                notyf
+                                    .error({
+                                        message: dn + ' not found, this appraisal was skipped.',
+                                        dismissible: true,
+                                        duration: 0
+                                    })
+                                    .on('dismiss', ({
+                                        target,
+                                        event
+                                    }) => foobar.retry());
                                 setTimeout(checkNextDomain, delay);
                             } else if ("OK" === e.status) {
                                 var domain = e.domain;
@@ -162,11 +204,24 @@ function checkNextDomain() {
                                 timeoutId = setTimeout(checkNextDomain, delay);
                             } else {
                                 console.error(`Error: ${e.status}`);
-                                fetchErrorCount++;
-                                if (fetchErrorCount < 3) {
+                                while (fetchErrorCount < 3) {
                                     retryTimeoutId = setTimeout(fetchData, delay);
-                                } else {
-                                    console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code} retries: ${fetchErrorCount}`);
+                                    fetchErrorCount++;
+                                    break;
+                                }
+                                if (fetchErrorCount >= 3) {
+                                    console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
+                                    const notyf = new Notyf();
+                                    notyf
+                                        .error({
+                                            message: dn + ' - An error occurred, this appraisal was skipped.',
+                                            dismissible: true,
+                                            duration: 0
+                                        })
+                                        .on('dismiss', ({
+                                            target,
+                                            event
+                                        }) => foobar.retry());
                                     setTimeout(checkNextDomain, delay);
                                 }
                             }
@@ -176,8 +231,20 @@ function checkNextDomain() {
                             fetchErrorCount++;
                             if (fetchErrorCount < 3) {
                                 retryTimeoutId = setTimeout(fetchData, delay);
-                            } else {
-                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code} retries: ${fetchErrorCount}`);
+                            }
+                            if (fetchErrorCount >= 3) {
+                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
+                                const notyf = new Notyf();
+                                notyf
+                                    .error({
+                                        message: dn + ' - An error occurred, this appraisal was skipped.',
+                                        dismissible: true,
+                                        duration: 0
+                                    })
+                                    .on('dismiss', ({
+                                        target,
+                                        event
+                                    }) => foobar.retry());
                                 setTimeout(checkNextDomain, delay);
                             }
                         });
@@ -191,6 +258,19 @@ function checkNextDomain() {
         }
     } else if (domains.length === index) {
         sortEnabled = true;
+        const notyf = new Notyf();
+        notyf
+            .success({
+                message: 'Verification Completed!',
+                dismissible: false,
+                duration: 3500
+            })
+            .on('dismiss', ({
+                target,
+                event
+            }) => foobar.retry());
+        document.querySelector(".btn-checked").disabled = false;
+        document.querySelector(".btn-checked").title = "";
     }
 }
 
@@ -253,6 +333,17 @@ function sortDomains() {
  * Clears the results of the previous scan.
  */
 function clearResults() {
+    const notyf = new Notyf();
+    notyf
+        .success({
+            message: 'Cleaned!',
+            dismissible: false,
+            duration: 2000
+        })
+        .on('dismiss', ({
+            target,
+            event
+        }) => foobar.retry());
     (document.getElementById("highValueResult").innerHTML = ""),
     (document.getElementById("result").innerHTML = ""),
     (domains = []),
@@ -305,7 +396,8 @@ window.addEventListener("click", function(event) {
                 clearAllTimeouts();
             }
         }, 50);
-
+        document.querySelector(".btn-checked").disabled = false;
+        document.querySelector(".btn-checked").title = "";
         setTimeout(function() {
             clearInterval(intervalId);
             clearAllTimeouts();
@@ -314,4 +406,4 @@ window.addEventListener("click", function(event) {
     }
 });
 
-// v1.0.2 Code Version - check https://github.com/short443/BDAC/releases/ for updates
+// v1.0.3 Code Version - check https://github.com/short443/BDAC/releases/ for updates.
