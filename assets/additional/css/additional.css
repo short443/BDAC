@@ -138,8 +138,8 @@ body {
 
 .btn-primary,
 .btn-primary:active {
-    background-color: #6592e6 !important;
-    border-color: #6592e6 !important;
+    background-color: #3975e5 !important;
+    border-color: #3975e5 !important;
     color: #ffffff !important;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
@@ -1318,6 +1318,7 @@ a {
 .cid-tuyOGDSIz5 .card-wrapper {
     border-radius: 4px;
     background: #fafafa;
+    width: 100%;
 }
 
 @media (max-width: 992px) {
