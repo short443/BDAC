@@ -11,6 +11,8 @@ BDAC is an interface that allows you to evaluate multiple domains at once. It us
 
 🟢 Automatic key rotation system.
 
+🟢 Support Domain,keyword and URL lists.
+
 🟢 CSV export system.
 
 🟢 Domain formatting system.
