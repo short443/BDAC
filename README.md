@@ -4,6 +4,7 @@
 
 # BDAC - Bulk Domain Appraisal Checker
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/short443)
+[!["NamePros Profile"](https://cdn.jsdelivr.net/gh/short443/hostimage@main/images/NamePros.png)](https://www.namepros.com/members/short.1058245/)
 
 BDAC is an interface that allows you to evaluate multiple domains at once. It uses the Godaddy API to perform this assessment and displays the results on the screen. The tool is easy to use, just enter the desired domain names into the text box and click "Evaluate".
 
