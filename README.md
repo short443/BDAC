@@ -79,6 +79,12 @@ To get the keys and secrets follow the step-by-step instructions:
   <img src="https://cdn.jsdelivr.net/gh/short443/hostimage@main/images/1675602232992.png" alt="rock" width="700" height="352"/>
 </p>
 
+## Lastest Update Notes.
+
+Feb 10, 2023 (v1.0.5.5):
+
+I noticed there was a very long delay between checks, I realized that the setTimeout applied in the last "fetchData()" and "checkNextDomain()" commands were adding 2x more delay than needed between checks, removing the setTimeout with delay and leaving them free seems to have solved the problem, now the code flows much faster, I think I reached a very good balance point so far with all these updates.
+
 ## About the development.
 
 Hello, my name is short (pseudonym) and I would like to talk a little bit about the development and code of my program. This is my first project and I developed it almost entirely without coding. I started researching programming, and this project is part of my study. I used ChatGPT to help with the backend development, and I used Mobirise 4 for the frontend. While I was writing the code and fighting to get correct answers from ChatGPT, I realized that some things in the code might not be correct. That's why I came to Github, to release the code and learn from others on how to correct any issues.
