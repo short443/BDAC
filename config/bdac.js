@@ -3,18 +3,18 @@
  * @type {Array<{key: string, secret: string}>}
  */
 let apiKeys = [
-{
-    key: "",
-    secret: ""
-},
-{
-    key: "",
-    secret: ""
-},
-{
-    key: "",
-    secret: ""
-},
+    {
+        key: "",
+        secret: ""
+    },
+    {
+        key: "",
+        secret: ""
+    },
+    {
+        key: "",
+        secret: ""
+    },
 ],
 
 /**
@@ -26,7 +26,7 @@ let apiKeys = [
 cors_api_url = "https://corsproxy.io/?",
 
 /**
-* A filter that will only show products with a price greater than the given value.
+* A filter that will only show domains with a price greater than the given value.
 * @param {number} highValuePrice - the high value price to filter products by.
 * @returns {FilterConfig} - a filter config object.
 */
@@ -273,7 +273,7 @@ if (0 != e.trim().length) {
                             // ( To activate, change the value of the variable "highValueBeep" to true. )
                             if (highValueBeep === true) {
                                 var audio = new Audio("assets/audio/hvbeep.mp3");
-                                audio.volume = 0.20;
+                                audio.volume = 0.25;
                                 audio.play();
                             }
 
@@ -326,14 +326,14 @@ if (0 != e.trim().length) {
                     }
                 });
         };
-        timeoutId = setTimeout(fetchData, delay);
+        fetchData();
     }
 
 }
 
 // Once the process of checking one domain is finished, the function is called again to check the next one.
 else {
-    timeoutId = setTimeout(checkNextDomain, delay);
+    checkNextDomain();
 }
 }
 
@@ -472,4 +472,4 @@ sortEnabled = true;
 }
 });
 
-// v1.0.5 Code Version - check https://github.com/short443/BDAC/releases/ for updates.
+// v1.0.5.5 Code Version - check https://github.com/short443/BDAC/releases/ for updates.
