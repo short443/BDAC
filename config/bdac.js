@@ -45,6 +45,7 @@ requestsCount = 0,
 dn,
 sortEnabled = true,
 oldInnerHTML,
+notyf = new Notyf(),
 domainsData = [];
 
 /**
@@ -68,31 +69,21 @@ let delay = 60000 / result;
 function appraiseDomains() {
     sortEnabled = false;
     if (!cors_api_url) {
-        const notyf = new Notyf();
         notyf
             .error({
                 message: 'Please set the "cors_api_url" variable in config/bdac.js before proceeding.',
                 dismissible: true,
                 duration: 7000
-            })
-            .on('dismiss', ({
-                target,
-                event
-            }) => foobar.retry());
+            });
         return
     }
     else if (!apiKeys.some((apiKey) => apiKey.key && apiKey.secret)) {
-        const notyf = new Notyf();
         notyf
             .error({
                 message: 'Please set the "apiKey" variable in config/bdac.js before proceeding.',
                 dismissible: true,
                 duration: 7000
-            })
-            .on('dismiss', ({
-                target,
-                event
-            }) => foobar.retry());
+            });
         return
     }
     var e = document.getElementById("textarea-form5-k");
@@ -104,6 +95,16 @@ function appraiseDomains() {
         document.querySelector(".btn-sort").title = "The button has been deactivated, to reactivate stop the appraisal process.";
         domains = e.value.split("\n").map((domain) => {
             domain = domain.replace(/\s/g, "");
+            // Remove everything before '://'
+            let index = domain.indexOf("://");
+            if (index !== -1) {
+                domain = domain.substring(index + 3);
+            }
+            // Remove '/' and anything after it from the end of the domain
+            index = domain.indexOf("/");
+            if (index !== -1) {
+                domain = domain.substring(0, index);
+            }
             if (domain.length > 0 && !domain.includes(".")) {
                 domain += ".com";
             }
@@ -160,48 +161,42 @@ function checkNextDomain() {
                         .then((e) => {
                             if (e.code === "TOO_MANY_REQUESTS") {
                                 console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code} Trying again in ${e.retryAfterSec} seconds.`);
-                                const notyf = new Notyf();
                                 notyf
                                     .error({
                                         message: 'Too many requests. Trying again in ' + e.retryAfterSec + ' seconds.',
                                         dismissible: true,
                                         duration: e.retryAfterSec * 1000
-                                    })
-                                    .on('dismiss', ({
-                                        target,
-                                        event
-                                    }) => foobar.retry());
+                                    });
                                 setTimeout(fetchData, e.retryAfterSec * 1000);
                             } else if (e.code === 429) {
                                 console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
                                 setTimeout(fetchData, 60000);
                             } else if (e.status === "UNSUPPORTED_DOMAIN") {
-                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
-                                const notyf = new Notyf();
+                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.status}`);
                                 notyf
                                     .error({
                                         message: dn + ' is not not supported for verification.',
                                         dismissible: true,
                                         duration: 0
-                                    })
-                                    .on('dismiss', ({
-                                        target,
-                                        event
-                                    }) => foobar.retry());
+                                    });
+                                setTimeout(checkNextDomain, delay);
+                            } else if (e.status === "MASKED_DOMAIN") {
+                                console.log(`Failed to fetch the domain: ${dn} Error code: ${e.status}`);
+                                notyf
+                                    .error({
+                                        message: dn + ' - Appraisals are blocked for this domain.',
+                                        dismissible: true,
+                                        duration: 0
+                                    });
                                 setTimeout(checkNextDomain, delay);
                             } else if (e.code === "NOT_FOUND") {
                                 console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
-                                const notyf = new Notyf();
                                 notyf
                                     .error({
                                         message: dn + ' not found, this appraisal was skipped.',
                                         dismissible: true,
                                         duration: 0
-                                    })
-                                    .on('dismiss', ({
-                                        target,
-                                        event
-                                    }) => foobar.retry());
+                                    });
                                 setTimeout(checkNextDomain, delay);
                             } else if ("OK" === e.status) {
                                 var domain = e.domain;
@@ -223,7 +218,14 @@ function checkNextDomain() {
                                     var highValueText = "Domain: " + dn + "<br>" + "Value: " + govalue;
                                     highValueResultDiv.innerHTML = highValueText;
                                     document.getElementById("highValueResult").insertAdjacentHTML("afterbegin", highValueResultDiv.outerHTML);
-                                }
+                                            notyf
+                                            .success({
+                                                message: dn + ' appraised in $' + govalue,
+                                                dismissible: true,
+                                                duration: 10000,
+                                                background: 'orange'
+                                            });
+                                        }
                                 timeoutId = setTimeout(checkNextDomain, delay);
                             } else {
                                 console.error(`Error: ${e.status}`);
@@ -234,17 +236,6 @@ function checkNextDomain() {
                                 }
                                 if (fetchErrorCount >= 3) {
                                     console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
-                                    const notyf = new Notyf();
-                                    notyf
-                                        .error({
-                                            message: dn + ' - An error occurred, this appraisal was skipped.',
-                                            dismissible: true,
-                                            duration: 0
-                                        })
-                                        .on('dismiss', ({
-                                            target,
-                                            event
-                                        }) => foobar.retry());
                                     setTimeout(checkNextDomain, delay);
                                 }
                             }
@@ -257,17 +248,12 @@ function checkNextDomain() {
                             }
                             if (fetchErrorCount >= 3) {
                                 console.log(`Failed to fetch the domain: ${dn} Error code: ${e.code}`);
-                                const notyf = new Notyf();
                                 notyf
                                     .error({
                                         message: dn + ' - An error occurred, this appraisal was skipped.',
                                         dismissible: true,
                                         duration: 0
-                                    })
-                                    .on('dismiss', ({
-                                        target,
-                                        event
-                                    }) => foobar.retry());
+                                    });
                                 setTimeout(checkNextDomain, delay);
                             }
                         });
@@ -281,17 +267,12 @@ function checkNextDomain() {
         }
     } else if (domains.length === index) {
         sortEnabled = true;
-        const notyf = new Notyf();
         notyf
             .success({
                 message: 'Verification Completed!',
                 dismissible: false,
                 duration: 3500
-            })
-            .on('dismiss', ({
-                target,
-                event
-            }) => foobar.retry());
+            });
         document.querySelector(".btn-checked").disabled = false;
         document.querySelector(".btn-checked").title = "";
         document.querySelector(".btn-sort").disabled = false;
@@ -356,18 +337,8 @@ function sortDomains() {
 /**
  * Clears the results of the previous scan.
  */
-function clearResults() {
-    const notyf = new Notyf();
-    notyf
-        .success({
-            message: 'Cleaned!',
-            dismissible: false,
-            duration: 2000
-        })
-        .on('dismiss', ({
-            target,
-            event
-        }) => foobar.retry());
+async function clearResults() {
+    await notyf.dismissAll();
     (document.getElementById("highValueResult").innerHTML = ""),
     (document.getElementById("result").innerHTML = ""),
     (domains = []),
@@ -375,8 +346,8 @@ function clearResults() {
     (domainsData = []),
     (result = []),
     checkedDomains.clear(),
-        (index = 0);
-}
+    (index = 0);
+    }    
 
 /**
  * Clears all timeouts.
@@ -432,4 +403,4 @@ window.addEventListener("click", function(event) {
     }
 });
 
-// v1.0.3.5 Code Version - check https://github.com/short443/BDAC/releases/ for updates.
+// v1.0.4 Code Version - check https://github.com/short443/BDAC/releases/ for updates.
