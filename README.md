@@ -17,7 +17,7 @@ BDAC is an interface that allows you to evaluate multiple domains at once. It us
 
 🟢 Domain sorting system.
 
-🟢 High-value domain separator
+🟢 High-value domain separator.
 
 🟢 Automatic calculation of checking speed.
 
@@ -62,6 +62,10 @@ To get the keys and secrets follow the step-by-step instructions:
 5 - Open the BDAC folder enter the config folder and open with a text editor the file "bdac.js"
 
 6 - Add the keys to the locations indicated between quotes in the "apiKeys" array, and repeat the process.
+
+7 - (Optional) Set the variable "highValuePriceFilter" to the price of the high value domains (>=) that you want to separate from the results. (Default: 2000)
+
+8 - (Optional) Set the variable "highValueBeep" to "true" if you want to have a notification sound when encountering high value domains. (Default: false)
 
 **Note: You can use as many keys as you want to speed up the responses, remember that each Key pair must be in different accounts.**
 
