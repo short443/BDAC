@@ -3,18 +3,18 @@
  * @type {Array<{key: string, secret: string}>}
  */
 let apiKeys = [
-    {
-        key: "",
-        secret: ""
-    },
-    {
-        key: "",
-        secret: ""
-    },
-    {
-        key: "",
-        secret: ""
-    },
+{
+    key: "",
+    secret: ""
+},
+{
+    key: "",
+    secret: ""
+},
+{
+    key: "",
+    secret: ""
+},
 ],
 
 /**
@@ -331,145 +331,160 @@ if (0 != e.trim().length) {
 
 }
 
-// Once the process of checking one domain is finished, the function is called again to check the next one.
-else {
-    checkNextDomain();
-}
-}
+		// Once the process of checking one domain is finished, the function is called again to check the next one.
+		else {
+			checkNextDomain();
+		}
+	}
 
-// If all domains in the list are checked, the program will release the disabled buttons and send a completion message to the user
-else if (domains.length === index) {
-sortEnabled = true;
-notyf
-    .success({
-        message: 'Verification Completed!',
-        dismissible: false,
-        duration: 3500
-    });
-document.querySelector(".btn-checked").disabled = false;
-document.querySelector(".btn-checked").title = "";
-document.querySelector(".btn-sort").disabled = false;
-document.querySelector(".btn-sort").title = "";
-}
+	// If all domains in the list are checked, the program will release the disabled buttons and send a completion message to the user
+	else if (domains.length === index) {
+		sortEnabled = true;
+		notyf
+			.success({
+				message: 'Verification Completed!',
+				dismissible: false,
+				duration: 3500
+			});
+		document.querySelector(".btn-checked").disabled = false;
+		document.querySelector(".btn-checked").title = "";
+		document.querySelector(".btn-sort").disabled = false;
+		document.querySelector(".btn-sort").title = "";
+	}
 }
 
 /**
-* Exports the data in the table to a CSV file.
-* @returns None
-*/
+ * Exports the data in the table to a CSV file.
+ * @returns None
+ */
 function exportToCSV() {
-let csv = "domain,value\n";
-let result = document.getElementById("result");
-let rows = result.getElementsByTagName("p");
-for (let i = 0; i < rows.length; i++) {
-let domain = rows[i].textContent.split(" - Value: $")[0];
-let value = rows[i].textContent.split(" - Value: $")[1];
-csv += domain + "," + value + "\n";
-}
-if (!rows.length) {
-domainsData.forEach((domain) => {
-    csv += domain.domain + "," + domain.value + "\n";
-});
-}
-let hiddenElement = document.createElement("a");
-hiddenElement.href = "data:text/csv;charset=utf-8," + encodeURI(csv);
-hiddenElement.target = "_blank";
-hiddenElement.download = "appraisals.csv";
-hiddenElement.click();
+	let csv = "domain,value\n";
+	let result = document.getElementById("result");
+	let rows = result.getElementsByTagName("p");
+	for (let i = 0; i < rows.length; i++) {
+		let domain = rows[i].textContent.split(" - Value: $")[0];
+		let value = rows[i].textContent.split(" - Value: $")[1];
+		csv += domain + "," + value + "\n";
+	}
+	if (!rows.length) {
+		domainsData.forEach((domain) => {
+			csv += domain.domain + "," + domain.value + "\n";
+		});
+	}
+	let hiddenElement = document.createElement("a");
+	hiddenElement.href = "data:text/csv;charset=utf-8," + encodeURI(csv);
+	hiddenElement.target = "_blank";
+	hiddenElement.download = "appraisals.csv";
+	hiddenElement.click();
 }
 
 /**
-* Sorts the domains by their value.
-* @returns None
-*/
+ * Sorts the domains by their value.
+ * @returns None
+ */
 function sortDomains() {
-if (!sortEnabled) {
-document.querySelector(".btn-sort").title = "The button has been deactivated, to reactivate stop the appraisal process.";
-return;
-}
-if (oldInnerHTML) {
-document.getElementById("result").innerHTML = oldInnerHTML;
-oldInnerHTML = null;
-document.querySelector(".btn-checked").disabled = false;
-document.querySelector(".btn-checked").title = "";
-} else {
-oldInnerHTML = document.getElementById("result").innerHTML;
-domainsData.sort((e, t) => t.value - e.value);
-let e = document.getElementById("result");
-(e.innerHTML = ""),
-domainsData.forEach((t) => {
-    let n = document.createElement("p");
-    (n.innerHTML = t.domain + " - Value: $" + t.value), e.appendChild(n);
-    document.querySelector(".btn-checked").disabled = true;
-    document.querySelector(".btn-checked").title =
-        "The button has been deactivated, to reactivate unsort the results.";
-});
-}
+	if (!sortEnabled) {
+		document.querySelector(".btn-sort").title = "The button has been deactivated, to reactivate stop the appraisal process.";
+		return;
+	}
+	if (oldInnerHTML) {
+		document.getElementById("result").innerHTML = oldInnerHTML;
+		oldInnerHTML = null;
+		document.querySelector(".btn-checked").disabled = false;
+		document.querySelector(".btn-checked").title = "";
+	} else {
+		oldInnerHTML = document.getElementById("result").innerHTML;
+		domainsData.sort((e, t) => t.value - e.value);
+		let e = document.getElementById("result");
+		(e.innerHTML = ""),
+		domainsData.forEach((t) => {
+			let n = document.createElement("p");
+			(n.innerHTML = t.domain + " - Value: $" + t.value), e.appendChild(n);
+			document.querySelector(".btn-checked").disabled = true;
+			document.querySelector(".btn-checked").title =
+				"The button has been deactivated, to reactivate unsort the results.";
+		});
+	}
 }
 
 /**
-* Clears the results of the previous scan.
-*/
+ * Clears the results of the previous scan.
+ */
 async function clearResults() {
-await notyf.dismissAll();
-(document.getElementById("highValueResult").innerHTML = ""),
-(document.getElementById("result").innerHTML = ""),
-(domains = []),
-(oldInnerHTML = []),
-(domainsData = []),
-(result = []),
-checkedDomains.clear(),
-(index = 0);
+	await notyf.dismissAll();
+	(document.getElementById("highValueResult").innerHTML = ""),
+	(document.getElementById("result").innerHTML = ""),
+	(domains = ""),
+	(oldInnerHTML = ""),
+	(domainsData = []),
+	(result = ""),
+	checkedDomains.clear(),
+		(index = 0);
+	document.querySelector(".btn-checked").disabled = false;
+	document.querySelector(".btn-checked").title = "";
+	document.querySelector(".btn-sort").disabled = false;
+	document.querySelector(".btn-sort").title = "";
+	notyf
+		.success({
+			message: 'Data Cleared!',
+			dismissible: false,
+			duration: 3500
+		});
 }
 
 /**
-* Clears all timeouts.
-* @returns None
-*/
+ * Clears all timeouts.
+ * @returns None
+ */
 function clearAllTimeouts() {
-clearTimeout(timeoutId);
-clearTimeout(retryTimeoutId);
+	clearTimeout(timeoutId);
+	clearTimeout(retryTimeoutId);
 }
 
 /**
-* Copies the checked domains to the clipboard.
-* @returns None
-*/
-function copyToClipboard() {
-var result = document.getElementById("result");
-var range = document.createRange();
-range.selectNode(result);
-window.getSelection().removeAllRanges();
-window.getSelection().addRange(range);
-document.execCommand("copy");
-window.getSelection().removeAllRanges();
-document.querySelector(".btn-confirm").innerHTML = "Copied!";
-setTimeout(function() {
-document.querySelector(".btn-confirm").innerHTML = "Copy";
-}, 1200);
+ * Copies the checked domains to the clipboard.
+ * @returns None
+ */
+async function copyToClipboard() {
+	try {
+		var result = document.getElementById("result");
+		await navigator.clipboard.writeText(result.innerText);
+		document.querySelector(".btn-confirm").innerHTML = "Copied!";
+		setTimeout(function() {
+			document.querySelector(".btn-confirm").innerHTML = "Copy";
+		}, 1200);
+	} catch (err) {
+		console.error("Failed to copy text: ", err);
+	}
 }
 
 /**
-* A function that clears all timeouts and intervals.
-* @returns None
-*/
+ * A function that clears all timeouts and intervals.
+ * @returns None
+ */
 window.addEventListener("click", function(event) {
-if (event.target.id === "stop") {
-var i = 0;
-var intervalId = setInterval(function() {
-    clearAllTimeouts();
-    i++;
-    if (i >= 30) {
-        clearInterval(intervalId);
-        clearAllTimeouts();
-    }
-}, 50);
-document.querySelector(".btn-checked").disabled = false;
-document.querySelector(".btn-checked").title = "";
-document.querySelector(".btn-sort").disabled = false;
-document.querySelector(".btn-sort").title = "";
-sortEnabled = true;
-}
+	if (event.target.id === "stop") {
+		var i = 0;
+		var intervalId = setInterval(function() {
+			clearAllTimeouts();
+			i++;
+			if (i >= 30) {
+				clearInterval(intervalId);
+				clearAllTimeouts();
+			}
+		}, 50);
+		notyf
+			.success({
+				message: 'Forced Stop.',
+				dismissible: false,
+				duration: 3500
+			});
+		document.querySelector(".btn-checked").disabled = false;
+		document.querySelector(".btn-checked").title = "";
+		document.querySelector(".btn-sort").disabled = false;
+		document.querySelector(".btn-sort").title = "";
+		sortEnabled = true;
+	}
 });
 
-// v1.0.5.5 Code Version - check https://github.com/short443/BDAC/releases/ for updates.
+// v1.0.6 Code Version - check https://github.com/short443/BDAC/releases/ for updates.
