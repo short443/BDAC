@@ -176,19 +176,19 @@ if (0 != e.trim().length) {
         };
 
         // Increments the requests count and if it reaches 20, increments the keyIndex.
-        requestsCount++;
-        if (20 === requestsCount) {
-            keyIndex++;
-            requestsCount = 0;
-            if (keyIndex === apiKeys.length) {
-                keyIndex = 0;
-            }
-        }
 
         // Fetch process and error handling.
         var a = [];
         var fetchErrorCount = 0;
         var fetchData = function() {
+            requestsCount++;
+            if (20 === requestsCount) {
+                keyIndex++;
+                requestsCount = 0;
+                if (keyIndex === apiKeys.length) {
+                    keyIndex = 0;
+                }
+            }
             // Fetch process t= request n= options
             fetch(t, n)
                 // Takes in a response object and returns the response body as a JSON object.
@@ -487,4 +487,4 @@ window.addEventListener("click", function(event) {
 	}
 });
 
-// v1.0.6 Code Version - check https://github.com/short443/BDAC/releases/ for updates.
+// v1.0.7 Code Version - check https://github.com/short443/BDAC/releases/ for updates.
