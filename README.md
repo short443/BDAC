@@ -34,6 +34,8 @@ More coming soon 🔧.
 
 3 x Pairs of GoDaddy Api Key/Secrets **(Each pair from differet accounts)**
 
+**Note: You can use as many keys as you want to speed up the responses, remember that each Key pair must be in different accounts.**
+
 ## Getting and adding Api Keys and Secrets.
 
 *⚠ Be careful, do not host this program on the internet without knowing what you are doing, leaking your api keys can put your account security at risk, use the program locally in a folder or a local server in your computer, never share your keys and secrets with anyone, and never share your personal program folder with anyone.*
@@ -57,8 +59,6 @@ To get the keys and secrets follow the step-by-step instructions:
 7 - (Optional) Set the variable "highValuePriceFilter" to the price of the high value domains (>=) that you want to separate from the results. (Default: 2000)
 
 8 - (Optional) Set the variable "highValueBeep" to "true" if you want to have a notification sound when encountering high value domains. (Default: false)
-
-**Note: You can use as many keys as you want to speed up the responses, remember that each Key pair must be in different accounts.**
 
 ## Download and running it.
 
