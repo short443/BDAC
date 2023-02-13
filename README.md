@@ -34,18 +34,6 @@ More coming soon 🔧.
 
 3 x Pairs of GoDaddy Api Key/Secrets **(Each pair from differet accounts)**
 
-## Download and running it.
-
-1 - [Click Here](https://github.com/short443/BDAC/releases) and download the latest version of the program.
-
-2 - After the download is finished extract the files anywhere on your computer.
-
-3 - The configuration file is inside the config folder, the 'bdac.js'.
-
-4 - **To run the program follow the configuration steps below defining at least the keys** and open the file "index.html" to open the interface.
-
-5 - Now just enjoy ✨
-
 ## Getting and adding Api Keys and Secrets.
 
 *⚠ Be careful, do not host this program on the internet without knowing what you are doing, leaking your api keys can put your account security at risk, use the program locally in a folder or a local server in your computer, never share your keys and secrets with anyone, and never share your personal program folder with anyone.*
@@ -71,6 +59,18 @@ To get the keys and secrets follow the step-by-step instructions:
 8 - (Optional) Set the variable "highValueBeep" to "true" if you want to have a notification sound when encountering high value domains. (Default: false)
 
 **Note: You can use as many keys as you want to speed up the responses, remember that each Key pair must be in different accounts.**
+
+## Download and running it.
+
+1 - [Click Here](https://github.com/short443/BDAC/releases) and download the latest version of the program.
+
+2 - After the download is finished extract the files anywhere on your computer.
+
+3 - The configuration file is inside the config folder, the 'bdac.js'.
+
+4 - **To run the program follow the configuration steps below defining at least the keys** and open the file "index.html" to open the interface.
+
+5 - Now just enjoy ✨
 
 ## Prints.
 
