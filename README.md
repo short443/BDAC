@@ -84,9 +84,9 @@ To get the keys and secrets follow the step-by-step instructions:
 
 ## Lastest Update Notes.
 
-Feb 10, 2023 (v1.0.5.5):
+Feb 14, 2023 (v1.0.8):
 
-I noticed there was a very long delay between checks, I realized that the setTimeout applied in the last "fetchData()" and "checkNextDomain()" commands were adding 2x more delay than needed between checks, removing the setTimeout with delay and leaving them free seems to have solved the problem, now the code flows much faster, I think I reached a very good balance point so far with all these updates.
+I added a code to prevent the user from accidentally closing the page during the checking process or when there are results in the html, sometimes I would accidentally close the browser while doing checks, tests, this was very annoying because besides losing the list of domains already loaded I would lose results that I wanted to save, so to solve this I added a code in case of forgetting not to close the page with content inside.
 
 ## About the development.
 
