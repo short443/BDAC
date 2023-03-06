@@ -84,6 +84,14 @@ To get the keys and secrets follow the step-by-step instructions:
 
 ## Lastest Update Notes.
 
+Mar 6, 2023 (v1.0.9):
+
+Since the last update some major changes were made, like the correction of a big problem that the code had that was the infinite recursion in the function checkNextDomain(), that caused the error "Maximum call stack size exceeded", preventing the program to continue/unpause large domain lists.
+
+I also brought Axios to have more compatibility with the most diverse browsers and to have more ease in implementing code and some changes in the structure of the function itself, with Axios it was possible to impose a limit for the response time of the API, I realized that sometimes the responses took minutes to be obtained (when it didn't give error), now with the timeout, if the response takes more than 10 seconds to return, the code will cancel the request and start a new one.
+
+I also improved a little bit the organization of the error handling code and added some new comments.
+
 Feb 14, 2023 (v1.0.8):
 
 I added a code to prevent the user from accidentally closing the page during the checking process or when there are results in the html, sometimes I would accidentally close the browser while doing checks, tests, this was very annoying because besides losing the list of domains already loaded I would lose results that I wanted to save, so to solve this I added a code in case of forgetting not to close the page with content inside.
