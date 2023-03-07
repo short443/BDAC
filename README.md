@@ -32,7 +32,7 @@ More coming soon 🔧.
 
 **What you will need:**
 
-Disable/Whitlist adblock - It can stop checks by improperly blocking some request.
+Disable/Whitlist Adblock - It can stop the code by improperly blocking some request.
 
 3 x Pairs of GoDaddy Api Key/Secrets **(Each pair from differet accounts)**
 
