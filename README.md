@@ -33,6 +33,7 @@ More coming soon 🔧.
 **What you will need:**
 
 Disable/Whitlist adblock - It can stop checks by improperly blocking some request.
+
 3 x Pairs of GoDaddy Api Key/Secrets **(Each pair from differet accounts)**
 
 **Note: You can use as many keys as you want to speed up the responses, remember that each Key pair must be in different accounts.**
