@@ -21,7 +21,7 @@ cors = "https://corsproxy.io/?",
 highValuePriceFilter = 2000,
 
 // Beep sound to notify about high value domains. Default: false.
-highValueBeep = true,
+highValueBeep = false,
 
 
 
