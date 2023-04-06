@@ -44,25 +44,33 @@ To be able to make requests to the GoDaddy API the BDAC uses a key rotation syst
 
 To get the keys and secrets follow the step-by-step instructions:
 
-1 - Create a GoDaddy account [(Click here)](https://sso.godaddy.com/v1/account/create)
+1 - Go to https://developer.godaddy.com
 
-2 - Enter the key management area [(Click Here)](https://developer.godaddy.com/keys) and click on "Create New Api Key".
+2 - Sign into your GoDaddy account
 
-3 - In "Environment" check "Production" and click next.
+3 - Select "API Keys"
 
-4 - Copy the Key and Secret.
+4 - Select "Create New API Key"
 
-5 - Open in the "config" folder inside "BDAC" and open with a text editor the file "bdac.js"
+5 - Enter any name or leave it blank
 
-6 - Paste the keys and secrets between quotes in the "apiKeys" array, and repeat the process.
+6 - Select "Production" under "Environment"
+
+7 - Click "Next"
+
+8 - The API Key is created
+
+9 - Open in the "config" folder inside "BDAC" and open with a text editor the file "bdac.js"
+
+10 - Paste the keys and secrets between quotes in the "apiKeys" array, and repeat the process.
 
 <p align="center">
   <img src="https://cdn.jsdelivr.net/gh/short443/hostimage@main/images/0aa121b19d.png" alt="rock" width="588" height="333"/>
 </p>
 
-7 - (Optional) Set the variable "highValuePriceFilter" to the price of the high value domains (>=) that you want to separate from the results. (Default: 2000)
+11 - (Optional) Set the variable "highValuePriceFilter" to the price of the high value domains (>=) that you want to separate from the results. (Default: 2000)
 
-8 - (Optional) Set the variable "highValueBeep" to "true" if you want to have a notification sound when encountering high value domains. (Default: false)
+12 - (Optional) Set the variable "highValueBeep" to "true" if you want to have a notification sound when encountering high value domains. (Default: false)
 
 
 ## New Version:
