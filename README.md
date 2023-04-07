@@ -65,7 +65,7 @@ To get the keys and secrets follow the step-by-step instructions:
 10 - Paste the keys and secrets between quotes in the "apiKeys" array, and repeat the process.
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/short443/hostimage@main/images/0aa121b19d.png" alt="rock" width="588" height="333"/>
+  <img src="https://github.com/short443/hostimage/blob/main/images/Apn.webp" alt="rock" width="360" height="333"/>
 </p>
 
 11 - (Optional) Set the variable "highValuePriceFilter" to the price of the high value domains (>=) that you want to separate from the results. (Default: 2000)
@@ -77,11 +77,6 @@ To get the keys and secrets follow the step-by-step instructions:
 
 <p align="center">
   <img src="https://cdn.jsdelivr.net/gh/short443/hostimage@main/images/34e20d63a6.png" alt="rock" width="700" height="352"/>
-</p>
-
-## Old Version:
-<p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/short443/hostimage@main/images/1675602232992.png" alt="rock" width="700" height="352"/>
 </p>
 
 ## Update Note.
