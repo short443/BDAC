@@ -1,4 +1,4 @@
-
+# ⚠️ This project no longer works due to changes in the GD API ❌.
 
 <p align="center">
   <img src="https://cdn.jsdelivr.net/gh/short443/hostimage@main/images/favicon.svg" alt="rock" width="100" height="100"/>
